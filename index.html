@@ -33,30 +33,25 @@
             position: relative;
         }
         .item h2 {
-            margin: 0 0 10px;
+            margin: 10px 0;
             font-size: 16px;
             line-height: 1.2;
         }
         .item p {
             font-size: 14px;
             color: #555;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
+            margin-bottom: 10px; /* Add some space below the text */
         }
         .item img {
             width: 100%; /* 전체 너비를 차지하도록 설정 */
             height: auto; /* 높이는 자동으로 설정 */
-            max-height: 150px; /* 최대 높이 제한 */
-            border-radius: 4px;
-            margin-bottom: 10px;
+            max-height: 200px; /* 최대 높이를 조금 더 늘려서 이미지가 크게 보이도록 함 */
             object-fit: contain; /* 이미지가 컨테이너 내에서 원래 비율을 유지하도록 설정 */
+            border-radius: 4px;
         }
         @media (max-width: 768px) {
             .item {
-                width: calc(100% - 40px); /* 1 item per row on small screens */
+                width: calc(100% - 20px); /* Adjust for mobile to utilize more space */
             }
         }
     </style>
