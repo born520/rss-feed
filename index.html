@@ -3,17 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RSS Feed Display</title>
+    <title>Image Only RSS Feed</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
             background-color: #f4f4f9;
-        }
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
         }
         #rss-feed {
             display: flex;
@@ -25,39 +21,30 @@
             border: 1px solid #ddd;
             border-radius: 8px;
             margin: 10px;
-            padding: 15px;
+            padding: 10px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            width: calc(20% - 40px); /* 5 items per row on large screens */
-            box-sizing: border-box;
+            width: 240px; /* Fixed width for uniform display */
+            height: 240px; /* Fixed height for uniform display */
             overflow: hidden;
-            position: relative;
-        }
-        .item h2 {
-            margin: 10px 0;
-            font-size: 16px;
-            line-height: 1.2;
-        }
-        .item p {
-            font-size: 14px;
-            color: #555;
-            margin-bottom: 10px; /* Add some space below the text */
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .item img {
-            width: 100%; /* 전체 너비를 차지하도록 설정 */
-            height: auto; /* 높이는 자동으로 설정 */
-            max-height: 200px; /* 최대 높이를 조금 더 늘려서 이미지가 크게 보이도록 함 */
-            object-fit: contain; /* 이미지가 컨테이너 내에서 원래 비율을 유지하도록 설정 */
-            border-radius: 4px;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures the image covers the area without distortion */
         }
         @media (max-width: 768px) {
             .item {
-                width: calc(100% - 20px); /* Adjust for mobile to utilize more space */
+                width: 100%; /* Full width on small screens */
+                height: 200px; /* Adjusted height on small screens */
             }
         }
     </style>
 </head>
 <body>
-    <h1>RSS Feed</h1>
+    <h1>Images from RSS Feed</h1>
     <div id="rss-feed"></div>
 
     <script>
@@ -70,12 +57,7 @@
                 data.items.forEach(item => {
                     const itemElement = document.createElement('div');
                     itemElement.classList.add('item');
-                    itemElement.innerHTML = `
-                        <img src="${item.thumbnail}" alt="${item.title}">
-                        <h2><a href="${item.link}" target="_blank">${item.title}</a></h2>
-                        <p>${item.description}</p>
-                        <p>${item.pubDate}</p>
-                    `;
+                    itemElement.innerHTML = `<img src="${item.thumbnail}" alt="Feed Image">`;
                     feedContainer.appendChild(itemElement);
                 });
             } else {
