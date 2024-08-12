@@ -49,19 +49,28 @@
 
     <script>
         async function fetchRSS() {
-            const response = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https://bg.raindrop.io/rss/public/26592148');
-            const data = await response.json();
-            const feedContainer = document.getElementById('rss-feed');
+            const proxyUrl = 'https://cors-anywhere.herokuapp.com/'; // Use a CORS proxy to avoid CORS policy
+            const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=https://bg.raindrop.io/rss/public/26592148';
+            try {
+                const response = await fetch(proxyUrl + apiUrl);
+                const data = await response.json();
+                const feedContainer = document.getElementById('rss-feed');
 
-            if (data.status === 'ok') {
-                data.items.forEach(item => {
-                    const itemElement = document.createElement('div');
-                    itemElement.classList.add('item');
-                    itemElement.innerHTML = `<img src="${item.thumbnail}" alt="Feed Image">`;
-                    feedContainer.appendChild(itemElement);
-                });
-            } else {
-                feedContainer.innerHTML = '<p>Failed to load RSS feed.</p>';
+                if (data.status === 'ok' && data.items.length > 0) {
+                    data.items.forEach(item => {
+                        if (item.thumbnail) { // Ensure there is a thumbnail
+                            const itemElement = document.createElement('div');
+                            itemElement.classList.add('item');
+                            itemElement.innerHTML = `<img src="${item.thumbnail}" alt="Feed Image">`;
+                            feedContainer.appendChild(itemElement);
+                        }
+                    });
+                } else {
+                    feedContainer.innerHTML = '<p>No images available.</p>';
+                }
+            } catch (error) {
+                console.error('Failed to fetch RSS feed:', error);
+                document.getElementById('rss-feed').innerHTML = '<p>Error loading images.</p>';
             }
         }
 
