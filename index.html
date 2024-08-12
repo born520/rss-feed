@@ -47,12 +47,12 @@
             -webkit-box-orient: vertical;
         }
         .item img {
-            width: 100%;
-            height: auto;
-            max-height: 150px; /* Limit the height for better alignment */
+            width: 100%; /* 전체 너비를 차지하도록 설정 */
+            height: auto; /* 높이는 자동으로 설정 */
+            max-height: 150px; /* 최대 높이 제한 */
             border-radius: 4px;
             margin-bottom: 10px;
-            object-fit: cover; /* Ensure image covers the space without distortion */
+            object-fit: contain; /* 이미지가 컨테이너 내에서 원래 비율을 유지하도록 설정 */
         }
         @media (max-width: 768px) {
             .item {
