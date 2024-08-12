@@ -29,14 +29,30 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             width: calc(20% - 40px); /* 5 items per row on large screens */
             box-sizing: border-box;
+            overflow: hidden;
+            position: relative;
         }
         .item h2 {
             margin: 0 0 10px;
-            font-size: 18px;
+            font-size: 16px;
+            line-height: 1.2;
         }
         .item p {
             font-size: 14px;
             color: #555;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+        }
+        .item img {
+            width: 100%;
+            height: auto;
+            max-height: 150px; /* Limit the height for better alignment */
+            border-radius: 4px;
+            margin-bottom: 10px;
+            object-fit: cover; /* Ensure image covers the space without distortion */
         }
         @media (max-width: 768px) {
             .item {
@@ -60,9 +76,10 @@
                     const itemElement = document.createElement('div');
                     itemElement.classList.add('item');
                     itemElement.innerHTML = `
+                        <img src="${item.thumbnail}" alt="${item.title}">
                         <h2><a href="${item.link}" target="_blank">${item.title}</a></h2>
-                        <p>${item.pubDate}</p>
                         <p>${item.description}</p>
+                        <p>${item.pubDate}</p>
                     `;
                     feedContainer.appendChild(itemElement);
                 });
